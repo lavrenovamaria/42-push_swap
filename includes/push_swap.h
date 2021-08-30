@@ -35,8 +35,11 @@ void	push_to_b(t_list **list_a, t_list **list_b);
 void	ra_rb_rr(t_list **list_ra);
 void	rra_rrb_rrr(t_list **list_rra);
 
+void	raspredelitelnaya_shlyapa();
 void	sort_3(); //вручную комбинациями перебор
+void	sort_4();
 void	sort_5(); //отбросить 2 в стек б, потом сортировка 3-х
+void	sort_large_nbrs();
 
 int		check_args();
 int		check_limits();

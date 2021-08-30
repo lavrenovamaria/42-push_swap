@@ -53,12 +53,41 @@ void rra_rrb_rrr(t_list **list_rra)
 	tmp->next = NULL;
 }
 
-void sort_3(t_list **list_sa)
+void sort_3(t_list **list)
 {
-
+	if (list[0]->nbr > list[0]->next->nbr)
+		{
+			if (list[0]->nbr > list[0]->next->next->nbr)
+			{
+				if (list[0]->next->nbr > list[0]->next->next->nbr)
+				{
+					sa_sb_ss(list);
+					rra_rrb_rrr(list);
+				}
+				else
+					ra_rb_rr(list);
+			}
+			else if (list[0]->nbr < list[0]->next->next->nbr)
+				sa_sb_ss(list);
+		}
+		else if (list[0]->nbr < list[0]->next->nbr)
+		{
+			if (list[0]->nbr > list[0]->next->next->nbr)
+				rra_rrb_rrr(list);
+			else if (list[0]->nbr < list[0]->next->next->nbr)
+			{
+				if (list[0]->next->nbr > list[0]->next->next->nbr)
+				{
+					sa_sb_ss(list);
+					ra_rb_rr(list);
+				}
+				else
+					return;
+			}
+		}
 }
 
-void sort_5()
+void sort_5(t_list **list_a, t_list **list_b)
 {
 
 }
@@ -109,24 +138,72 @@ void quick_sort(int arr[], int left, int right)
 	quick_sort(arr, j + 1, right);
 }
 
+// int	main(int argc, char **argv)
+// {
+// 	t_list *not_sorted;
+// 	int count;
+
+// 	not_sorted = 0;
+// 	if (argc > 1)
+// 	{
+// 		not_sorted = 1;
+// 		while (not_sorted < argc)
+// 		{
+// 			if (!)
+// 				return(error(not_sorted))
+// 			i++;
+// 		}
+// 		if (!(if_sorted(not_sorted))
+// 			sorting(&not_sorted);
+// 	}
+// 	return (0);
+// }
+void	raspredelitelnaya_shlyapa(t_list **list)
+{
+	t_list *list;
+
+	if (ft_lstsize(lst) == 3)
+	{
+		sort_3(lst);
+	}
+	else if (ft_lstsize(lst) == 4)
+	{
+		sort_4(lst);
+	}
+	else if (ft_lstsize(lst) == 5)
+	{
+		sort_5(lst);
+	}
+	else if (ft_lstsize(lst) <= 100)
+	{
+		sort_5(lst);
+	}
+}
 int	main(int argc, char **argv)
 {
-	t_list *not_sorted;
-	int count;
-
-	not_sorted = 0;
-	if (argc > 1)
+	t_list *lst;
+	t_list *rec;
+	t_list *swap;
+	int i;
+	int c[argc];
+	int count = 0;
+	i = 1;
+	c[argc - 1] = '\0';
+	while(argv[i])
+		ft_lstadd_back(&lst, ft_lstnew(ft_atoi(argv[i++]), count++));
+	swap = lst;
+	while (lst)
 	{
-		not_sorted = 1;
-		while (not_sorted < argc)
-		{
-			if (!)
-				return(error(not_sorted))
-			i++;
-		}
-		if (!(if_sorted(not_sorted))
-			sorting(&not_sorted);
+	    printf("%d", lst->nbr);
+	    printf("_%d ", lst->index);
+	    lst = lst->next;
 	}
-	return (0);
+	sort_3(&swap);
+	lst = swap;
+	while (lst)
+	{
+	    printf("%d", lst->nbr);
+	    printf("_%d ", lst->index);
+	    lst = lst->next;
+	}
 }
-
