@@ -52,6 +52,28 @@ void rra_rrb_rrr(t_list **list_rra)
 		tmp = tmp->next;
 	tmp->next = NULL;
 }
+int	max_nbr(t_list **list)
+{
+	int max;
+
+	max = list[0]->nbr;
+	while(list)
+	{
+		if((list[0]->nbr) > max)
+			max = list[0]->nbr;
+		list[0] = list[0]->next;
+
+	}
+	return(max);
+}
+
+t_list	*addlast(t_list *list)
+{
+	if (list!= NULL)
+		if (list->next)
+			return (addlast(list->next));
+	return (list);
+}
 
 void sort_3(t_list **list)
 {
@@ -85,6 +107,36 @@ void sort_3(t_list **list)
 					return;
 			}
 		}
+}
+
+void sort_4(t_list **list_a, t_list **list_b)
+{
+	int max_data;
+
+	max_data = max_nbr(&list_a[0]);
+	if (list_a[0]->index == max_data)
+	{
+		push_to_b(list_a, list_b);
+		sort_3(list_a);
+		push_to_a(list_a, list_b);
+		ra_rb_rr(list_a);
+		return;
+	}
+	else if (addlast(list_a[0])->index == max_data)
+	{
+		rra_rrb_rrr(list_a);
+		push_to_b(list_a, list_b);
+		sort_3(list_a);
+		push_to_a(list_a, list_b);
+		ra_rb_rr(list_a);
+		return;
+	}
+	else
+	{
+		ra_rb_rr(list_a);
+		sort_4(list_a, list_b);
+	}
+
 }
 
 void sort_5(t_list **list_a, t_list **list_b)
@@ -158,32 +210,37 @@ void quick_sort(int arr[], int left, int right)
 // 	}
 // 	return (0);
 // }
-void	raspredelitelnaya_shlyapa(t_list **list)
-{
-	t_list *list;
 
-	if (ft_lstsize(lst) == 3)
-	{
-		sort_3(lst);
-	}
-	else if (ft_lstsize(lst) == 4)
-	{
-		sort_4(lst);
-	}
-	else if (ft_lstsize(lst) == 5)
-	{
-		sort_5(lst);
-	}
-	else if (ft_lstsize(lst) <= 100)
-	{
-		sort_5(lst);
-	}
-}
+
+// void	raspredelitelnaya_shlyapa(t_list **list)
+// {
+// 	t_list *list;
+
+// 	if (ft_lstsize(list) == 3)
+// 	{
+// 		sort_3(list);
+// 	}
+// 	else if (ft_lstsize(list) == 4)
+// 	{
+// 		sort_4(list);
+// 	}
+// 	else if (ft_lstsize(list) == 5)
+// 	{
+// 		sort_5(list);
+// 	}
+// 	else if (ft_lstsize(list) <= 100)
+// 	{
+// 		sort_5(list);
+// 	}
+// }
+
+
 int	main(int argc, char **argv)
 {
 	t_list *lst;
 	t_list *rec;
 	t_list *swap;
+	lst = 0;
 	int i;
 	int c[argc];
 	int count = 0;
@@ -198,7 +255,7 @@ int	main(int argc, char **argv)
 	    printf("_%d ", lst->index);
 	    lst = lst->next;
 	}
-	sort_3(&swap);
+	sort_4(&swap, &lst);
 	lst = swap;
 	while (lst)
 	{
