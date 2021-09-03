@@ -213,21 +213,21 @@ void quick_sort(int arr[], int left, int right)
 
 // int	main(int argc, char **argv)
 // {
-// 	t_list *not_sorted;
+// 	t_list *nsrtd;
 // 	int count;
 
-// 	not_sorted = 0;
+// 	nsrtd = 0;
 // 	if (argc > 1)
 // 	{
-// 		not_sorted = 1;
-// 		while (not_sorted < argc)
+// 		nsrtd = 1;
+// 		while (nsrtd < argc)
 // 		{
 // 			if (!)
-// 				return(error(not_sorted))
+// 				return(error(nsrtd))
 // 			i++;
 // 		}
-// 		if (!(if_sorted(not_sorted))
-// 			sorting(&not_sorted);
+// 		if (!(if_sorted(nsrtd))
+// 			sorting(&nsrtd);
 // 	}
 // 	return (0);
 // }
@@ -258,14 +258,20 @@ void quick_sort(int arr[], int left, int right)
 int	main(int argc, char **argv)
 {
 	int n;
-	int *numbers;
+	int *nsrtd;
+	int *s_rtd;
 	n = argc - 1;
 	int i = 1;
-	numbers = malloc(n * sizeof(*numbers));
+	nsrtd = malloc(n * sizeof(*nsrtd));
+	s_rtd = malloc(n * sizeof(*s_rtd));
 	while(argv[i])
 	{
-		numbers[0] = ft_atoi(argv[i++]);
-		printf("%d\n", numbers[0]);
+		nsrtd[0] = ft_atoi(argv[i++]);
+		printf("%d\n", nsrtd[0]);
 	}
 	return (0);
 }
+//создать второй массив отсортированный
+//неотсортированный сразу бросить в листы ft_lstadd_back(&lst, ft_lstnew(ft_atoi(argv[i++]), count++));
+//или же отдельная функция, которая параллельно будет кидать в листы из неосортированного и отсортированного массива
+//
