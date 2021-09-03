@@ -52,17 +52,16 @@ void rra_rrb_rrr(t_list **list_rra)
 		tmp = tmp->next;
 	tmp->next = NULL;
 }
-int	max_nbr(t_list **list)
+int	max_nbr(t_list *list)
 {
 	int max;
 
-	max = list[0]->nbr;
-	while(list)
+	max = list->nbr;
+	while(list != NULL)
 	{
-		if((list[0]->nbr) > max)
-			max = list[0]->nbr;
-		list[0] = list[0]->next;
-
+		if((list->nbr) > max)
+			max = list->nbr;
+		list = list->next;
 	}
 	return(max);
 }
@@ -113,8 +112,8 @@ void sort_4(t_list **list_a, t_list **list_b)
 {
 	int max_data;
 
-	max_data = max_nbr(&list_a[0]);
-	if (list_a[0]->index == max_data)
+	max_data = max_nbr(list_a[0]);
+	if (list_a[0]->nbr == max_data)
 	{
 		push_to_b(list_a, list_b);
 		sort_3(list_a);
@@ -122,7 +121,7 @@ void sort_4(t_list **list_a, t_list **list_b)
 		ra_rb_rr(list_a);
 		return;
 	}
-	else if (addlast(list_a[0])->index == max_data)
+	else if (addlast(list_a[0])->nbr == max_data)
 	{
 		rra_rrb_rrr(list_a);
 		push_to_b(list_a, list_b);
@@ -136,7 +135,6 @@ void sort_4(t_list **list_a, t_list **list_b)
 		ra_rb_rr(list_a);
 		sort_4(list_a, list_b);
 	}
-
 }
 
 void sort_5(t_list **list_a, t_list **list_b)
@@ -237,30 +235,37 @@ void quick_sort(int arr[], int left, int right)
 
 int	main(int argc, char **argv)
 {
-	t_list *lst;
-	t_list *rec;
+	t_list *tmp;
+	t_list **rec;
 	t_list *swap;
-	lst = 0;
+	t_list **stack;
+	tmp = 0;
 	int i;
+	int j = 0;
 	int c[argc];
 	int count = 0;
 	i = 1;
 	c[argc - 1] = '\0';
-	while(argv[i])
-		ft_lstadd_back(&lst, ft_lstnew(ft_atoi(argv[i++]), count++));
-	swap = lst;
-	while (lst)
+	stack = malloc(sizeof(t_list *));
+	stack[0] = NULL;
+	rec= malloc(sizeof(t_list *));
+	rec[0] = NULL;
+	while(j++ < argc - 1)
+		ft_lstadd_back(stack, ft_lstnew(ft_atoi(argv[i++]), count++));
+	tmp = *stack;
+	while (tmp)
 	{
-	    printf("%d", lst->nbr);
-	    printf("_%d ", lst->index);
-	    lst = lst->next;
+	    printf("%d", tmp->nbr);
+	    printf("_%d ", tmp->index);
+	    tmp = tmp->next;
 	}
-	sort_4(&swap, &lst);
-	lst = swap;
-	while (lst)
+	sort_4(stack, rec);
+	tmp = *stack;
+	while (tmp)
 	{
-	    printf("%d", lst->nbr);
-	    printf("_%d ", lst->index);
-	    lst = lst->next;
+	    printf("%d", tmp->nbr);
+	    printf("_%d ", tmp->index);
+	    tmp = tmp->next;
 	}
+	return 0;
 }

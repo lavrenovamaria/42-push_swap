@@ -3,6 +3,7 @@ int	main(int argc, char **argv)
 	t_list *lst;
 	t_list *rec;
 	t_list *swap;
+	lst = 0;
 	int i;
 	int c[argc];
 	int count = 0;
@@ -17,7 +18,7 @@ int	main(int argc, char **argv)
 	    printf("_%d ", lst->index);
 	    lst = lst->next;
 	}
-	sa_sb_ss(&swap);
+	sort_3(&swap);
 	lst = swap;
 	while (lst)
 	{
