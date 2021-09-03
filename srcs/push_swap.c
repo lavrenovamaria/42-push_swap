@@ -66,6 +66,24 @@ int	max_nbr(t_list *list)
 	return(max);
 }
 
+t_list **list_of_sorted_and_not()
+
+int	max_ind(t_list *list)
+{
+	int max_ind;
+
+	max_ind = 0;
+	if (list == NULL)
+		return (0);
+	while(list != NULL)
+	{
+		if((list->index) > max_ind)
+			max_ind = list->index;
+		list = list->next;
+	}
+	return(max_ind);
+}
+
 t_list	*addlast(t_list *list)
 {
 	if (list!= NULL)
@@ -139,6 +157,11 @@ void sort_4(t_list **list_a, t_list **list_b)
 
 void sort_5(t_list **list_a, t_list **list_b)
 {
+	int frst_nbr;
+	int scnd_nbr;
+	frst_nbr = max_nbr(list_a[0]);
+	scnd_nbr = frst_nbr - 1;
+
 
 }
 
@@ -232,40 +255,17 @@ void quick_sort(int arr[], int left, int right)
 // 	}
 // }
 
-
 int	main(int argc, char **argv)
 {
-	t_list *tmp;
-	t_list **rec;
-	t_list *swap;
-	t_list **stack;
-	tmp = 0;
-	int i;
-	int j = 0;
-	int c[argc];
-	int count = 0;
-	i = 1;
-	c[argc - 1] = '\0';
-	stack = malloc(sizeof(t_list *));
-	stack[0] = NULL;
-	rec= malloc(sizeof(t_list *));
-	rec[0] = NULL;
-	while(j++ < argc - 1)
-		ft_lstadd_back(stack, ft_lstnew(ft_atoi(argv[i++]), count++));
-	tmp = *stack;
-	while (tmp)
+	int n;
+	int *numbers;
+	n = argc - 1;
+	int i = 1;
+	numbers = malloc(n * sizeof(*numbers));
+	while(argv[i])
 	{
-	    printf("%d", tmp->nbr);
-	    printf("_%d ", tmp->index);
-	    tmp = tmp->next;
+		numbers[0] = ft_atoi(argv[i++]);
+		printf("%d\n", numbers[0]);
 	}
-	sort_4(stack, rec);
-	tmp = *stack;
-	while (tmp)
-	{
-	    printf("%d", tmp->nbr);
-	    printf("_%d ", tmp->index);
-	    tmp = tmp->next;
-	}
-	return 0;
+	return (0);
 }
