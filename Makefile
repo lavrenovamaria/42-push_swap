@@ -1,57 +1,58 @@
-NAME = push_swap
+NAME		=	push_swap
 
-SRCS_DIR = ./srcs/
+NAME_BONUS	=	checker
 
-NAME_CLIENT = client
+HEADER 		= 	push_swap.h
 
-CC = gcc
+HEADER_B 	= 	push_swap_bonus.h
 
-FLAGS = -Wall -Werror -Wextra
+CC			=	gcc -g
+RM			=	rm -f
 
-DIR_LIBFT = libft/
-LIBFT = libft/libft.a
+CFLAGS		=	-Wall -Wextra -Werror
 
-HEADER = ./includes/minitalk.h
+SRCS		=	check.c \
+				ft_add_back.c\
+				important_func.c \
+				libft.c \
+				move.c \
+				push_swap.c \
+				put_index.c \
+				sorting.c \
 
-HEADER_B = ./includes/minitalk_bonus.h
+SRCS_BONUS	=	check_bonus.c \
+				checker_bonus.c \
+				ft_add_back_bonus.c\
+				important_func_bonus.c \
+				libft_bonus.c \
+				move_bonus.c \
+				push_swap_bonus.c \
+				put_index_bonus.c \
+				sorting_bonus.c \
 
-MINITALK_CLIENT = ./src/client.c
+OBJS_BONUS	=	${SRCS_BONUS:.c=.o}
 
-MINITALK_CLIENT_B = client_bonus.h
+OBJS		=	${SRCS:.c=.o}
 
-MINITALK_SERVER = ./src/server.c
+%.o: %.c	${HEADER} ${HEADER_BONUS}
+			${CC} ${CFLAGS} -c $< -o $@
 
-MINITALK_SERVER_B = server_bonus.h
+${NAME}:		Makefile push_swap.h ${OBJS}
+			${CC} ${CFLAGS} ${OBJS} -o ${NAME}
 
-SOURCES_LIBFT = $(addprefix $(DIR_LIBFT), $(LIBFT))
+${NAME_BONUS}:	Makefile checker.h ${OBJS_BONUS}
+			${CC} ${CFLAGS} ${OBJS_BONUS} -o ${NAME_BONUS}
 
-all: $(NAME_SERVER) $(NAME_CLIENT)
+all:			${NAME} ${HEADER}
 
-$(NAME_SERVER): $(MINITALK_SERVER) $(LIBFT)
-	@$(CC) $(FLAGS) $(MINITALK_SERVER) $(LIBFT) -o $(NAME_SERVER) -I ./includes
-	@echo "--server is ready to use--(ᵔᴥᵔ)"
+bonus:			${NAME_BONUS} ${HEADER_BONUS}
 
-$(NAME_CLIENT): $(MINITALK_CLIENT) $(LIBFT)
-	@$(CC) $(FLAGS) $(MINITALK_CLIENT) $(LIBFT) -o $(NAME_CLIENT) -I ./includes
-	@echo "ʕ•ᴥ•ʔ--client is ready to use--"
+clean:
+				${RM} ${OBJS} ${OBJS_BONUS}
 
-$(NAME_SERVER_BONUS): $(MINITALK_SERVER) $(LIBFT)
-	@$(CC) $(FLAGS) $(MINITALK_SERVER) $(LIBFT) -o $(NAME_SERVER_BONUS) -I ./includes
-	@echo "--server is ready to use--(ᵔᴥᵔ)"
+fclean:			clean
+				${RM} ${NAME} ${NAME_BONUS}
 
-$(NAME_CLIENT_BONUS): $(MINITALK_CLIENT) $(LIBFT)
-	@$(CC) $(FLAGS) $(MINITALK_CLIENT) $(LIBFT) -o $(NAME_CLIENT_BONUS) -I ./includes
-	@echo "ʕ•ᴥ•ʔ--client is ready to use--"
+re:				fclean all
 
-$(LIBFT) :
-	$(MAKE) -C $(DIR_LIBFT)
-
-bonus: $(NAME_SERVER_BONUS) $(NAME_CLIENT_BONUS)
-	@echo "[bonus version is ready to use]"
-
-fclean:
-	@rm -f $(NAME_SERVER) $(NAME_CLIENT) $(NAME_SERVER_BONUS) $(NAME_CLIENT_BONUS)
-
-re: fclean all
-
-.PHONY : all re fclean bonus
+.PHONY: 		 all re fclean bonus clean
